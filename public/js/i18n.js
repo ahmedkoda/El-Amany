@@ -1,0 +1,293 @@
+// Al Amani Express — client-side i18n (Arabic / English)
+// Default language is Arabic (RTL). Choice is saved in localStorage.
+(function () {
+  const DIR = { ar: 'rtl', en: 'ltr' };
+
+  const T = {
+    ar: {
+      // nav + shared
+      'nav.home': 'الرئيسية', 'nav.services': 'خدماتنا', 'nav.routes': 'خطوط الشحن',
+      'nav.contact': 'تواصل معنا', 'nav.whatsapp': 'واتساب',
+      'footer.about.title': 'الأماني إكسبريس للشحن',
+      'footer.about.text': 'شحن وتخليص جمركي بين مصر وفلسطين — بحري وبري، كلي وجزئي، من الاستلام حتى باب العميل.',
+      'footer.links': 'روابط', 'footer.contact': 'تواصل',
+      'footer.wa.eg': 'واتساب مصر', 'footer.wa.ps': 'واتساب الضفة',
+      'footer.address': 'القاهرة – مدينة نصر – عمارات رابعة الاستثمارية – عمارة 58',
+      'footer.copy': '© الأماني إكسبريس للشحن — جميع الحقوق محفوظة.',
+      // slider
+      'slide1.tag': 'من مصر إلى الضفة الغربية',
+      'slide1.title': 'شحن بحري وبري من مصر إلى الضفة الغربية',
+      'slide1.text': 'حاويات كاملة (FCL) أو شحن جزئي بالكرتونة والمشطاح، مع التخليص الجمركي والتوصيل حتى بابك.',
+      'slide1.cta': 'اطلب عرض سعر على واتساب',
+      'slide2.tag': 'من مصر إلى غزة',
+      'slide2.title': 'شحن جزئي وكلي من مصر إلى غزة من الباب إلى الباب',
+      'slide2.text': 'استلام من أي محافظة داخل مصر، تجميع وتغليف، ومتابعة لحظة بلحظة حتى التسليم.',
+      'slide2.cta': 'احجز شحنتك الآن',
+      'slide3.tag': 'من الضفة إلى غزة',
+      'slide3.title': 'شحن يومي ومنتظم من الضفة الغربية إلى غزة',
+      'slide3.text': 'ملابس، أحذية، أدوات منزلية ومواد غذائية — شحن كلي وجزئي بأفضل الأسعار.',
+      'slide3.cta': 'تواصل مع فرع الضفة',
+      'slide4.tag': 'تخزين وتوريد',
+      'slide4.title': 'مخازن مجهزة في الضفة ومصانع معتمدة في مصر',
+      'slide4.text': 'خزّن بضاعتك بأمان في رام الله – بيتونيا، ودعنا نوفّر لك المصنع الأنسب في مصر.',
+      'slide4.cta': 'استفسر الآن',
+      // intro
+      'intro.tag': 'الحل الأسرع والأضمن',
+      'intro.title': 'الأماني إكسبريس للشحن والتخليص الجمركي',
+      'intro.text': 'شركة متخصصة في النقل والتخليص الجمركي والتوريد بين جمهورية مصر العربية وفلسطين. نقدّم حلولًا متكاملة للتجار والمستوردين والأفراد: شحن بحري وبري، كلي وجزئي، مع متابعة دقيقة من لحظة الاستلام وحتى التسليم.',
+      // routes
+      'routes.title': 'خطوط الشحن',
+      'routes.lead': 'أربعة خطوط نغطيها بانتظام بين مصر والضفة الغربية وغزة.',
+      'route.1.title': 'مصر ← الضفة الغربية',
+      'route.1.text': 'شحن بحري كلي (حاويات كاملة) وجزئي (كرتونة – مشطاح)، وشحن بري مباشر بعربيات كاملة. تخليص جمركي ونقل من الميناء أو المعبر إلى داخل الضفة.',
+      'route.2.title': 'مصر ← غزة',
+      'route.2.text': 'شحن جزئي يومي وشحن كلي، من الباب إلى الباب. استلام من جميع محافظات مصر مع تجميع وتغليف احترافي.',
+      'route.3.title': 'الضفة الغربية ← غزة',
+      'route.3.text': 'شحن يومي ومنتظم، كلي وجزئي، لكل أنواع البضائع. استلام في مخزننا برام الله – بيتونيا وتوصيل حتى باب المستلم في غزة.',
+      'route.4.title': 'نقل داخلي في فلسطين',
+      'route.4.text': 'نقل من الميناء أو معبر نيتسانا إلى مختلف مناطق الضفة والداخل، بشحنات جزئية أو كاملة حسب الحاجة.',
+      // services
+      'services.title': 'خدماتنا',
+      'services.lead': 'كل ما تحتاجه تجارتك تحت اسم واحد: شحن، تخليص، تخزين، توريد، ونقل داخلي.',
+      'svc.sea.title': 'شحن بحري من مصر إلى الضفة',
+      'svc.sea.desc': 'حاويات كاملة FCL أو شحن جزئي LCL بالكرتونة والمشطاح، بمواعيد انطلاق ثابتة وبالتعاون مع شركات شحن دولية.',
+      'svc.land.title': 'شحن بري من مصر إلى الضفة',
+      'svc.land.desc': 'عربيات كاملة لكل أنواع البضائع: مواد بناء، أجهزة كهربائية، أدوات منزلية، ملابس، مواد غذائية وبضائع بالجملة.',
+      'svc.gaza.title': 'شحن من مصر إلى غزة',
+      'svc.gaza.desc': 'شحن جزئي حتى للكميات الصغيرة وشحن كلي للتجار، مع تجميع الشحنات وتوصيل مباشر إلى غزة.',
+      'svc.wbgaza.title': 'شحن من الضفة إلى غزة',
+      'svc.wbgaza.desc': 'خدمة يومية لشحن الملابس والأحذية والأدوات المنزلية والمواد الغذائية، كلي وجزئي، بأفضل الأسعار.',
+      'svc.customs.title': 'التخليص الجمركي',
+      'svc.customs.desc': 'إنهاء كامل إجراءات التخليص في مصر وفلسطين بكفاءة عالية، بالتعاون مع وكلائنا داخل فلسطين.',
+      'svc.storage.title': 'التخزين',
+      'svc.storage.desc': 'مخازن مجهزة وآمنة في رام الله – بيتونيا لتخزين البضائع لحساب الغير أسبوعيًا أو شهريًا، وتخزين في مصر لحين الشحن.',
+      'svc.factories.title': 'توفير مصانع وموردين في مصر',
+      'svc.factories.desc': 'نربطك بأفضل المصانع المعتمدة في مصر: مواد غذائية، مواد بناء، أثاث منزلي ومكتبي، ونساعدك في اختيار المصنع الأنسب.',
+      'svc.internal.title': 'النقل الداخلي',
+      'svc.internal.desc': 'توصيل بضاعتك إلى أي نقطة داخل الضفة الغربية والداخل الفلسطيني حتى باب العميل.',
+      'svc.packing.title': 'التجميع والتغليف',
+      'svc.packing.desc': 'تعبئة وتغليف احترافي يحمي بضاعتك خلال النقل البحري والبري، مع ترتيب وتحميل محترف.',
+      'svc.tracking.title': 'متابعة الشحنة والتأمين',
+      'svc.tracking.desc': 'تحديثات مستمرة على حالة شحنتك وتقارير متابعة في كل مرحلة، مع إمكانية التأمين على البضائع الثمينة.',
+      'services.all': 'كل الخدمات بالتفصيل',
+      // goods
+      'goods.title': 'ماذا نشحن؟',
+      'goods.lead': 'نستقبل جميع أنواع البضائع التجارية والشخصية.',
+      'goods.1': 'ملابس', 'goods.2': 'أحذية', 'goods.3': 'أدوات منزلية', 'goods.4': 'مواد غذائية',
+      'goods.5': 'مواد بناء', 'goods.6': 'أجهزة كهربائية', 'goods.7': 'أثاث ومفروشات', 'goods.8': 'أدوات مطبخ',
+      'goods.9': 'بلاستيكيات', 'goods.10': 'مستلزمات تنظيف', 'goods.11': 'مستحضرات', 'goods.12': 'أجهزة وإكسسوارات',
+      'goods.13': 'بضائع بالجملة', 'goods.14': 'شحن شخصي للأفراد',
+      // how it works
+      'how.title': 'خطوات الشحن معنا',
+      'how.lead': 'من طلب العرض حتى التسليم، نحن معك في كل خطوة.',
+      'how.s1.title': 'تواصل معنا واطلب عرضًا', 'how.s1.text': 'أرسل تفاصيل البضاعة على واتساب: النوع، الوزن، الأبعاد، والعنوان — ونوافيك بالتكلفة المتوقعة.',
+      'how.s2.title': 'التغليف والتجهيز', 'how.s2.text': 'نساعدك في التعبئة والتغليف بطريقة تحمي البضاعة خلال الرحلة.',
+      'how.s3.title': 'النقل إلى نقطة الشحن', 'how.s3.text': 'نستلم البضاعة من أي محافظة في مصر أو من مخزننا في الضفة.',
+      'how.s4.title': 'الشحن البحري أو البري', 'how.s4.text': 'تنطلق الشحنة ضمن حاوية كاملة أو شحن مجمّع بمواعيد ثابتة.',
+      'how.s5.title': 'التخليص الجمركي', 'how.s5.text': 'ننهي إجراءات الجمارك والتخليص عند الوصول بالتعاون مع وكلائنا في فلسطين.',
+      'how.s6.title': 'التسليم حتى بابك', 'how.s6.text': 'نوصّل البضاعة إلى عنوانك داخل الضفة أو غزة، مع متابعة حتى التأكد من الاستلام.',
+      // trust
+      'trust.title': 'لماذا الأماني إكسبريس؟',
+      'trust.1.title': 'خبرة في الشحن لفلسطين', 'trust.1.text': 'سنوات من الخبرة في التخليص والترتيبات اللوجستية بين مصر والضفة وغزة.',
+      'trust.2.title': 'أسعار تنافسية', 'trust.2.text': 'تقييم واقعي يضمن لك أفضل قيمة مقابل الخدمة، للتجار والأفراد.',
+      'trust.3.title': 'التزام بالمواعيد', 'trust.3.text': 'مواعيد انطلاق ثابتة وتعامل مع شركات شحن دولية لضمان استقرار الجدول.',
+      'trust.4.title': 'متابعة لحظة بلحظة', 'trust.4.text': 'فريق دعم يرد على استفساراتك ويتابع شحنتك من الاستلام حتى التسليم.',
+      'trust.5.title': 'شحن جزئي لأي كمية', 'trust.5.text': 'لا تحتاج حاوية كاملة — نشحن كرتونة واحدة أو مشطاحًا بنفس الاهتمام.',
+      'trust.6.title': 'فرعان في مصر والضفة', 'trust.6.text': 'مكتب في القاهرة – مدينة نصر، ومخزن في رام الله – بيتونيا.',
+      // cta
+      'cta.title': 'جاهز تشحن بضاعتك؟',
+      'cta.lead': 'أرسل لنا تفاصيل شحنتك على واتساب ونرد عليك بعرض السعر والخطوات.',
+      'cta.eg': 'واتساب فرع مصر', 'cta.ps': 'واتساب فرع الضفة',
+      // services page
+      'spage.tag': 'خدماتنا',
+      'spage.title': 'حلول شحن متكاملة بين مصر وفلسطين',
+      'spage.text': 'شحن بحري وبري، تخليص جمركي، تخزين، توريد من المصانع، ونقل داخلي — كل شيء بأمان واحترافية من الاستلام حتى التسليم.',
+      'spage.note': 'تنبيه: تأكد من إدخال بيانات صحيحة للبضاعة (الوصف، القيمة، بلد المنشأ) لتجنب التأخير أو رفض التخليص. بعض البضائع قد تخضع لقيود استيراد في فلسطين، لذا يُفضل استشارتنا مسبقًا. الزمن قد يتأثر بظروف الحدود أو الجمارك.',
+      'spage.cta': 'اطلب عرض سعر على واتساب',
+      'faq.title': 'أسئلة شائعة',
+      'faq.1.q': 'هل أحتاج حاوية كاملة لأشحن معكم؟',
+      'faq.1.a': 'لا. نوفر الشحن الجزئي بالكرتونة أو المشطاح لأي كمية، بجانب الشحن الكلي بالحاويات الكاملة للتجار.',
+      'faq.2.q': 'كيف أعرف تكلفة الشحن؟',
+      'faq.2.a': 'أرسل لنا نوع البضاعة ووزنها وأبعادها وعنوان التسليم على واتساب، ونوافيك بالتكلفة المتوقعة.',
+      'faq.3.q': 'من أين تستلمون البضاعة؟',
+      'faq.3.a': 'من جميع محافظات مصر، ومن مخزننا في رام الله – بيتونيا للشحنات المتجهة من الضفة إلى غزة.',
+      'faq.4.q': 'هل يمكنني التأمين على شحنتي؟',
+      'faq.4.a': 'نعم، ونُفضّل اختيار التأمين على الشحنة خصوصًا للبضائع الثمينة.',
+      // contact page
+      'contact.tag': 'تواصل معنا',
+      'contact.title': 'نحن هنا لخدمتك',
+      'contact.text': 'راسلنا على واتساب أو اتصل بنا، وفريقنا يرد عليك بأسرع وقت.',
+      'contact.wa.eg': 'واتساب فرع مصر', 'contact.wa.ps': 'واتساب فرع الضفة',
+      'contact.phone': 'هاتف فرع مصر',
+      'contact.addr.title': 'مكتب القاهرة',
+      'contact.addr.text': 'القاهرة – مدينة نصر – عمارات رابعة الاستثمارية – عمارة 58، جمهورية مصر العربية.',
+      'contact.store.title': 'مخزن الضفة',
+      'contact.store.text': 'رام الله – بيتونيا، فلسطين.',
+      'contact.hours.title': 'ساعات العمل',
+      'contact.hours.text': 'نستقبل طلباتكم على واتساب في أي وقت.',
+      'contact.fb': 'صفحتنا على فيسبوك',
+      'contact.cta.title': 'أرسل تفاصيل شحنتك',
+      'contact.cta.lead': 'النوع، الوزن، الأبعاد، وعنوان التسليم — ونرد عليك بعرض السعر.',
+      'contact.cta.btn': 'مراسلة على واتساب',
+      // 404
+      'e404.title': 'الصفحة غير موجودة', 'e404.text': 'عذرًا، لم نعثر على الصفحة المطلوبة.',
+      'e404.home': 'العودة للرئيسية',
+    },
+
+    en: {
+      'nav.home': 'Home', 'nav.services': 'Services', 'nav.routes': 'Routes',
+      'nav.contact': 'Contact', 'nav.whatsapp': 'WhatsApp',
+      'footer.about.title': 'Al Amani Express',
+      'footer.about.text': 'Freight and customs clearance between Egypt and Palestine — sea and land, full and partial loads, from pickup to your door.',
+      'footer.links': 'Links', 'footer.contact': 'Contact',
+      'footer.wa.eg': 'WhatsApp Egypt', 'footer.wa.ps': 'WhatsApp West Bank',
+      'footer.address': 'Cairo – Nasr City – Rabaa Investment Buildings – Building 58',
+      'footer.copy': '© Al Amani Express — All rights reserved.',
+      'slide1.tag': 'Egypt → West Bank',
+      'slide1.title': 'Sea and land freight from Egypt to the West Bank',
+      'slide1.text': 'Full containers (FCL) or partial loads by carton and pallet, with customs clearance and delivery to your door.',
+      'slide1.cta': 'Get a quote on WhatsApp',
+      'slide2.tag': 'Egypt → Gaza',
+      'slide2.title': 'Partial and full loads from Egypt to Gaza, door to door',
+      'slide2.text': 'Pickup from any governorate in Egypt, consolidation and packing, and live tracking until delivery.',
+      'slide2.cta': 'Book your shipment',
+      'slide3.tag': 'West Bank → Gaza',
+      'slide3.title': 'Daily, regular shipping from the West Bank to Gaza',
+      'slide3.text': 'Clothing, footwear, household goods and food — full and partial loads at the best rates.',
+      'slide3.cta': 'Contact the West Bank branch',
+      'slide4.tag': 'Storage & sourcing',
+      'slide4.title': 'Equipped warehouses in the West Bank and trusted factories in Egypt',
+      'slide4.text': 'Store your goods safely in Ramallah – Beitunia, and let us find the right factory for you in Egypt.',
+      'slide4.cta': 'Ask us now',
+      'intro.tag': 'The fastest, safest way',
+      'intro.title': 'Al Amani Express — Freight & Customs Clearance',
+      'intro.text': 'A company specialised in transport, customs clearance and sourcing between Egypt and Palestine. We deliver end-to-end solutions for traders, importers and individuals: sea and land freight, full and partial loads, with close follow-up from pickup to delivery.',
+      'routes.title': 'Shipping routes',
+      'routes.lead': 'Four routes we cover regularly between Egypt, the West Bank and Gaza.',
+      'route.1.title': 'Egypt → West Bank',
+      'route.1.text': 'Full-container sea freight (FCL), partial loads by carton or pallet, and direct land freight with full trucks. Customs clearance and transport from the port or crossing into the West Bank.',
+      'route.2.title': 'Egypt → Gaza',
+      'route.2.text': 'Daily partial loads and full loads, door to door. Pickup from all Egyptian governorates with professional consolidation and packing.',
+      'route.3.title': 'West Bank → Gaza',
+      'route.3.text': 'Daily, regular service for full and partial loads of all goods. Receiving at our Ramallah – Beitunia warehouse and delivery to the recipient\'s door in Gaza.',
+      'route.4.title': 'Domestic transport in Palestine',
+      'route.4.text': 'Transport from the port or the Nitzana crossing to all areas of the West Bank and inside, in partial or full loads as needed.',
+      'services.title': 'Our services',
+      'services.lead': 'Everything your business needs under one name: freight, clearance, storage, sourcing and domestic delivery.',
+      'svc.sea.title': 'Sea freight Egypt → West Bank',
+      'svc.sea.desc': 'Full containers (FCL) or partial loads (LCL) by carton and pallet, with fixed departure dates and international shipping lines.',
+      'svc.land.title': 'Land freight Egypt → West Bank',
+      'svc.land.desc': 'Full trucks for all kinds of goods: building materials, appliances, household goods, clothing, food and wholesale cargo.',
+      'svc.gaza.title': 'Shipping Egypt → Gaza',
+      'svc.gaza.desc': 'Partial loads even for small quantities and full loads for traders, with consolidation and direct delivery to Gaza.',
+      'svc.wbgaza.title': 'Shipping West Bank → Gaza',
+      'svc.wbgaza.desc': 'Daily service for clothing, footwear, household goods and food, full and partial loads, at the best rates.',
+      'svc.customs.title': 'Customs clearance',
+      'svc.customs.desc': 'Complete clearance procedures in Egypt and Palestine, handled efficiently with our agents inside Palestine.',
+      'svc.storage.title': 'Warehousing',
+      'svc.storage.desc': 'Secure, equipped warehouses in Ramallah – Beitunia for weekly or monthly third-party storage, plus storage in Egypt until shipping.',
+      'svc.factories.title': 'Factory & supplier sourcing in Egypt',
+      'svc.factories.desc': 'We connect you with trusted Egyptian factories for food, building materials and home or office furniture, and help you pick the right one.',
+      'svc.internal.title': 'Domestic delivery',
+      'svc.internal.desc': 'Delivery of your goods to any point in the West Bank and inside Palestine, right to the customer\'s door.',
+      'svc.packing.title': 'Consolidation & packing',
+      'svc.packing.desc': 'Professional packing that protects your goods during sea and land transport, with expert arrangement and loading.',
+      'svc.tracking.title': 'Tracking & insurance',
+      'svc.tracking.desc': 'Continuous updates on your shipment and progress reports at every stage, with optional insurance for valuable cargo.',
+      'services.all': 'All services in detail',
+      'goods.title': 'What we ship',
+      'goods.lead': 'We accept all kinds of commercial and personal goods.',
+      'goods.1': 'Clothing', 'goods.2': 'Footwear', 'goods.3': 'Household goods', 'goods.4': 'Food products',
+      'goods.5': 'Building materials', 'goods.6': 'Electrical appliances', 'goods.7': 'Furniture & furnishings', 'goods.8': 'Kitchenware',
+      'goods.9': 'Plastics', 'goods.10': 'Cleaning supplies', 'goods.11': 'Cosmetics', 'goods.12': 'Devices & accessories',
+      'goods.13': 'Wholesale cargo', 'goods.14': 'Personal shipments',
+      'how.title': 'How shipping works',
+      'how.lead': 'From your quote request to delivery, we are with you at every step.',
+      'how.s1.title': 'Contact us for a quote', 'how.s1.text': 'Send the goods details on WhatsApp: type, weight, dimensions and address — we reply with the expected cost.',
+      'how.s2.title': 'Packing & preparation', 'how.s2.text': 'We help you pack in a way that protects the goods during the journey.',
+      'how.s3.title': 'Transport to the shipping point', 'how.s3.text': 'We collect from any governorate in Egypt or from our warehouse in the West Bank.',
+      'how.s4.title': 'Sea or land freight', 'how.s4.text': 'Your cargo departs in a full container or a consolidated load on fixed dates.',
+      'how.s5.title': 'Customs clearance', 'how.s5.text': 'We complete customs and clearance on arrival together with our agents in Palestine.',
+      'how.s6.title': 'Delivery to your door', 'how.s6.text': 'We deliver to your address in the West Bank or Gaza and follow up until receipt is confirmed.',
+      'trust.title': 'Why Al Amani Express?',
+      'trust.1.title': 'Experience shipping to Palestine', 'trust.1.text': 'Years of experience in clearance and logistics between Egypt, the West Bank and Gaza.',
+      'trust.2.title': 'Competitive rates', 'trust.2.text': 'Realistic pricing that gives traders and individuals the best value for the service.',
+      'trust.3.title': 'On-time commitment', 'trust.3.text': 'Fixed departure dates and international shipping lines for a stable schedule.',
+      'trust.4.title': 'Live follow-up', 'trust.4.text': 'A support team that answers your questions and tracks your shipment from pickup to delivery.',
+      'trust.5.title': 'Partial loads of any size', 'trust.5.text': 'No full container needed — we ship a single carton or pallet with the same care.',
+      'trust.6.title': 'Branches in Egypt and the West Bank', 'trust.6.text': 'An office in Cairo – Nasr City and a warehouse in Ramallah – Beitunia.',
+      'cta.title': 'Ready to ship?',
+      'cta.lead': 'Send us your shipment details on WhatsApp and we reply with a quote and the next steps.',
+      'cta.eg': 'WhatsApp Egypt branch', 'cta.ps': 'WhatsApp West Bank branch',
+      'spage.tag': 'Services',
+      'spage.title': 'End-to-end freight solutions between Egypt and Palestine',
+      'spage.text': 'Sea and land freight, customs clearance, warehousing, factory sourcing and domestic delivery — all handled safely and professionally from pickup to delivery.',
+      'spage.note': 'Note: make sure the goods details are accurate (description, value, country of origin) to avoid delays or refused clearance. Some goods may be subject to import restrictions in Palestine, so please consult us first. Transit time can be affected by border or customs conditions.',
+      'spage.cta': 'Get a quote on WhatsApp',
+      'faq.title': 'Frequently asked questions',
+      'faq.1.q': 'Do I need a full container to ship with you?',
+      'faq.1.a': 'No. We offer partial loads by carton or pallet for any quantity, alongside full-container loads for traders.',
+      'faq.2.q': 'How do I find out the shipping cost?',
+      'faq.2.a': 'Send us the goods type, weight, dimensions and delivery address on WhatsApp and we reply with the expected cost.',
+      'faq.3.q': 'Where do you collect goods from?',
+      'faq.3.a': 'From all Egyptian governorates, and from our Ramallah – Beitunia warehouse for shipments from the West Bank to Gaza.',
+      'faq.4.q': 'Can I insure my shipment?',
+      'faq.4.a': 'Yes, and we recommend insurance especially for valuable goods.',
+      'contact.tag': 'Contact us',
+      'contact.title': 'We are here to help',
+      'contact.text': 'Message us on WhatsApp or call us, and our team will reply as soon as possible.',
+      'contact.wa.eg': 'WhatsApp Egypt branch', 'contact.wa.ps': 'WhatsApp West Bank branch',
+      'contact.phone': 'Phone Egypt branch',
+      'contact.addr.title': 'Cairo office',
+      'contact.addr.text': 'Cairo – Nasr City – Rabaa Investment Buildings – Building 58, Egypt.',
+      'contact.store.title': 'West Bank warehouse',
+      'contact.store.text': 'Ramallah – Beitunia, Palestine.',
+      'contact.hours.title': 'Working hours',
+      'contact.hours.text': 'We receive your requests on WhatsApp at any time.',
+      'contact.fb': 'Our Facebook page',
+      'contact.cta.title': 'Send your shipment details',
+      'contact.cta.lead': 'Type, weight, dimensions and delivery address — and we reply with a quote.',
+      'contact.cta.btn': 'Message on WhatsApp',
+      'e404.title': 'Page not found', 'e404.text': 'Sorry, we could not find the page you requested.',
+      'e404.home': 'Back to home',
+    },
+  };
+
+  // DICT is the live dictionary (defaults + any admin overrides).
+  let DICT = { ar: T.ar, en: T.en };
+  window.I18N_DEFAULTS = T;   // exposed so the admin content editor can read defaults
+
+  function apply(lang) {
+    if (!DICT[lang]) lang = 'ar';
+    const dict = DICT[lang];
+    const html = document.documentElement;
+    html.lang = lang;
+    html.dir = DIR[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = dict[el.getAttribute('data-i18n')];
+      if (v != null) el.textContent = v;
+    });
+    document.querySelectorAll('.lang-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.lang === lang));
+    try { localStorage.setItem('ae_lang', lang); } catch (e) {}
+  }
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.lang-btn');
+    if (b) apply(b.dataset.lang);
+  });
+
+  function current() {
+    try { return localStorage.getItem('ae_lang') || 'ar'; } catch (e) { return 'ar'; }
+  }
+
+  apply(current());           // show defaults immediately (no flash for Arabic)
+  window.__setLang = apply;
+
+  // overlay admin-edited text (overrides) when the server provides any
+  fetch('/api/content').then(r => (r.ok ? r.json() : null)).then(ov => {
+    if (!ov) return;
+    ['ar', 'en'].forEach(l => { DICT[l] = Object.assign({}, T[l], ov[l] || {}); });
+    apply(current());
+  }).catch(() => {});
+})();
