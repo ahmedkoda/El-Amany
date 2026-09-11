@@ -90,34 +90,167 @@
       <div class="container">
         <h2 class="reveal" data-i18n="routes.title">خطوط الشحن</h2>
         <p class="lead reveal" data-i18n="routes.lead">أربعة خطوط نغطيها بانتظام بين مصر والضفة الغربية وغزة.</p>
-        <div class="grid">
-          <article class="card route reveal"><div class="ico">🚢</div><h3 data-i18n="route.1.title">مصر ← الضفة الغربية</h3><p data-i18n="route.1.text">شحن بحري كلي (حاويات كاملة) وجزئي (كرتونة – مشطاح)، وشحن بري مباشر بعربيات كاملة. تخليص جمركي ونقل من الميناء أو المعبر إلى داخل الضفة.</p></article>
-          <article class="card route reveal"><div class="ico">🚚</div><h3 data-i18n="route.2.title">مصر ← غزة</h3><p data-i18n="route.2.text">شحن جزئي يومي وشحن كلي، من الباب إلى الباب. استلام من جميع محافظات مصر مع تجميع وتغليف احترافي.</p></article>
-          <article class="card route reveal"><div class="ico">📦</div><h3 data-i18n="route.3.title">الضفة الغربية ← غزة</h3><p data-i18n="route.3.text">شحن يومي ومنتظم، كلي وجزئي، لكل أنواع البضائع. استلام في مخزننا برام الله – بيتونيا وتوصيل حتى باب المستلم في غزة.</p></article>
-          <article class="card route reveal"><div class="ico">🗺️</div><h3 data-i18n="route.4.title">نقل داخلي في فلسطين</h3><p data-i18n="route.4.text">نقل من الميناء أو معبر نيتسانا إلى مختلف مناطق الضفة والداخل، بشحنات جزئية أو كاملة حسب الحاجة.</p></article>
+        <div class="routes-grid">
+          <article class="route-card route-sea reveal" tabindex="0">
+            <div class="route-track">
+              <span class="route-node"><i></i><b data-i18n="route.1.from">مصر</b></span>
+              <span class="route-line"><span class="route-mover"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-ship"/></svg></span></span>
+              <span class="route-node"><i></i><b data-i18n="route.1.to">الضفة الغربية</b></span>
+            </div>
+            <h3 data-i18n="route.1.title">مصر ← الضفة الغربية</h3>
+            <p data-i18n="route.1.text">شحن بحري كلي (حاويات كاملة) وجزئي (كرتونة – مشطاح)، وشحن بري مباشر بعربيات كاملة. تخليص جمركي ونقل من الميناء أو المعبر إلى داخل الضفة.</p>
+            <div class="route-chips"><span data-i18n="route.1.c1">بحري FCL / LCL</span><span data-i18n="route.1.c2">بري بعربيات كاملة</span><span data-i18n="route.1.c3">تخليص جمركي</span></div>
+          </article>
+          <article class="route-card route-land reveal" tabindex="0">
+            <div class="route-track">
+              <span class="route-node"><i></i><b data-i18n="route.2.from">مصر</b></span>
+              <span class="route-line"><span class="route-mover"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-truck"/></svg></span></span>
+              <span class="route-node"><i></i><b data-i18n="route.2.to">غزة</b></span>
+            </div>
+            <h3 data-i18n="route.2.title">مصر ← غزة</h3>
+            <p data-i18n="route.2.text">شحن جزئي يومي وشحن كلي، من الباب إلى الباب. استلام من جميع محافظات مصر مع تجميع وتغليف احترافي.</p>
+            <div class="route-chips"><span data-i18n="route.2.c1">جزئي يومي</span><span data-i18n="route.2.c2">كلي للتجار</span><span data-i18n="route.2.c3">من الباب إلى الباب</span></div>
+          </article>
+          <article class="route-card route-daily reveal" tabindex="0">
+            <div class="route-track">
+              <span class="route-node"><i></i><b data-i18n="route.3.from">الضفة الغربية</b></span>
+              <span class="route-line"><span class="route-mover"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-package"/></svg></span></span>
+              <span class="route-node"><i></i><b data-i18n="route.3.to">غزة</b></span>
+            </div>
+            <h3 data-i18n="route.3.title">الضفة الغربية ← غزة</h3>
+            <p data-i18n="route.3.text">شحن يومي ومنتظم، كلي وجزئي، لكل أنواع البضائع. استلام في مخزننا برام الله – بيتونيا وتوصيل حتى باب المستلم في غزة.</p>
+            <div class="route-chips"><span data-i18n="route.3.c1">شحن يومي</span><span data-i18n="route.3.c2">كلي وجزئي</span><span data-i18n="route.3.c3">مخزن بيتونيا</span></div>
+          </article>
+          <article class="route-card route-inland reveal" tabindex="0">
+            <div class="route-track">
+              <span class="route-node"><i></i><b data-i18n="route.4.from">الميناء / نيتسانا</b></span>
+              <span class="route-line"><span class="route-mover"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-map"/></svg></span></span>
+              <span class="route-node"><i></i><b data-i18n="route.4.to">الضفة والداخل</b></span>
+            </div>
+            <h3 data-i18n="route.4.title">نقل داخلي في فلسطين</h3>
+            <p data-i18n="route.4.text">نقل من الميناء أو معبر نيتسانا إلى مختلف مناطق الضفة والداخل، بشحنات جزئية أو كاملة حسب الحاجة.</p>
+            <div class="route-chips"><span data-i18n="route.4.c1">جزئي أو كامل</span><span data-i18n="route.4.c2">كل المناطق</span><span data-i18n="route.4.c3">حتى باب العميل</span></div>
+          </article>
         </div>
+        <p class="section-hint reveal" data-i18n="route.hint">مرّر على أي خط لرؤية التفاصيل</p>
       </div>
     </section>
 
     <!-- ===== Services ===== -->
-    <section class="section section-tinted">
+    <section class="section section-tinted" id="services">
       <div class="container">
         <h2 class="reveal" data-i18n="services.title">خدماتنا</h2>
         <p class="lead reveal" data-i18n="services.lead">كل ما تحتاجه تجارتك تحت اسم واحد: شحن، تخليص، تخزين، توريد، ونقل داخلي.</p>
-        <div class="grid">
-          <article class="card reveal"><div class="ico">🚢</div><h3 data-i18n="svc.sea.title">شحن بحري من مصر إلى الضفة</h3><p data-i18n="svc.sea.desc">حاويات كاملة FCL أو شحن جزئي LCL بالكرتونة والمشطاح، بمواعيد انطلاق ثابتة وبالتعاون مع شركات شحن دولية.</p></article>
-          <article class="card reveal"><div class="ico">🚛</div><h3 data-i18n="svc.land.title">شحن بري من مصر إلى الضفة</h3><p data-i18n="svc.land.desc">عربيات كاملة لكل أنواع البضائع: مواد بناء، أجهزة كهربائية، أدوات منزلية، ملابس، مواد غذائية وبضائع بالجملة.</p></article>
-          <article class="card reveal"><div class="ico">🚚</div><h3 data-i18n="svc.gaza.title">شحن من مصر إلى غزة</h3><p data-i18n="svc.gaza.desc">شحن جزئي حتى للكميات الصغيرة وشحن كلي للتجار، مع تجميع الشحنات وتوصيل مباشر إلى غزة.</p></article>
-          <article class="card reveal"><div class="ico">📦</div><h3 data-i18n="svc.wbgaza.title">شحن من الضفة إلى غزة</h3><p data-i18n="svc.wbgaza.desc">خدمة يومية لشحن الملابس والأحذية والأدوات المنزلية والمواد الغذائية، كلي وجزئي، بأفضل الأسعار.</p></article>
-          <article class="card reveal"><div class="ico">🛃</div><h3 data-i18n="svc.customs.title">التخليص الجمركي</h3><p data-i18n="svc.customs.desc">إنهاء كامل إجراءات التخليص في مصر وفلسطين بكفاءة عالية، بالتعاون مع وكلائنا داخل فلسطين.</p></article>
-          <article class="card reveal"><div class="ico">🏭</div><h3 data-i18n="svc.storage.title">التخزين</h3><p data-i18n="svc.storage.desc">مخازن مجهزة وآمنة في رام الله – بيتونيا لتخزين البضائع لحساب الغير أسبوعيًا أو شهريًا، وتخزين في مصر لحين الشحن.</p></article>
-          <article class="card reveal"><div class="ico">🤝</div><h3 data-i18n="svc.factories.title">توفير مصانع وموردين في مصر</h3><p data-i18n="svc.factories.desc">نربطك بأفضل المصانع المعتمدة في مصر: مواد غذائية، مواد بناء، أثاث منزلي ومكتبي، ونساعدك في اختيار المصنع الأنسب.</p></article>
-          <article class="card reveal"><div class="ico">📍</div><h3 data-i18n="svc.internal.title">النقل الداخلي</h3><p data-i18n="svc.internal.desc">توصيل بضاعتك إلى أي نقطة داخل الضفة الغربية والداخل الفلسطيني حتى باب العميل.</p></article>
+        <div class="svc-showcase reveal">
+          <div class="svc-tabs" role="tablist">
+            <button class="svc-tab is-active" role="tab" id="tab-sea" aria-controls="panel-sea" aria-selected="true" data-svc="sea"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-ship"/></svg></span><span class="svc-tab-txt" data-i18n="svc.sea.title">شحن بحري من مصر إلى الضفة</span></button>
+            <button class="svc-tab" role="tab" id="tab-land" aria-controls="panel-land" aria-selected="false" data-svc="land"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-truck"/></svg></span><span class="svc-tab-txt" data-i18n="svc.land.title">شحن بري من مصر إلى الضفة</span></button>
+            <button class="svc-tab" role="tab" id="tab-gaza" aria-controls="panel-gaza" aria-selected="false" data-svc="gaza"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-route"/></svg></span><span class="svc-tab-txt" data-i18n="svc.gaza.title">شحن من مصر إلى غزة</span></button>
+            <button class="svc-tab" role="tab" id="tab-wbgaza" aria-controls="panel-wbgaza" aria-selected="false" data-svc="wbgaza"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-container"/></svg></span><span class="svc-tab-txt" data-i18n="svc.wbgaza.title">شحن من الضفة إلى غزة</span></button>
+            <button class="svc-tab" role="tab" id="tab-customs" aria-controls="panel-customs" aria-selected="false" data-svc="customs"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-stamp"/></svg></span><span class="svc-tab-txt" data-i18n="svc.customs.title">التخليص الجمركي</span></button>
+            <button class="svc-tab" role="tab" id="tab-storage" aria-controls="panel-storage" aria-selected="false" data-svc="storage"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-warehouse"/></svg></span><span class="svc-tab-txt" data-i18n="svc.storage.title">التخزين</span></button>
+            <button class="svc-tab" role="tab" id="tab-factories" aria-controls="panel-factories" aria-selected="false" data-svc="factories"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-factory"/></svg></span><span class="svc-tab-txt" data-i18n="svc.factories.title">توفير مصانع وموردين في مصر</span></button>
+            <button class="svc-tab" role="tab" id="tab-internal" aria-controls="panel-internal" aria-selected="false" data-svc="internal"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-map"/></svg></span><span class="svc-tab-txt" data-i18n="svc.internal.title">النقل الداخلي</span></button>
+            <button class="svc-tab" role="tab" id="tab-packing" aria-controls="panel-packing" aria-selected="false" data-svc="packing"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-packing"/></svg></span><span class="svc-tab-txt" data-i18n="svc.packing.title">التجميع والتغليف</span></button>
+            <button class="svc-tab" role="tab" id="tab-tracking" aria-controls="panel-tracking" aria-selected="false" data-svc="tracking"><span class="svc-tab-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-radar"/></svg></span><span class="svc-tab-txt" data-i18n="svc.tracking.title">متابعة الشحنة والتأمين</span></button>
+          </div>
+          <div class="svc-panels">
+            <article class="svc-detail is-active" role="tabpanel" id="panel-sea" aria-labelledby="tab-sea" data-svc="sea">
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-ship"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.sea.title">شحن بحري من مصر إلى الضفة</h3>
+                <p data-i18n="svc.sea.desc">حاويات كاملة FCL أو شحن جزئي LCL بالكرتونة والمشطاح، بمواعيد انطلاق ثابتة وبالتعاون مع شركات شحن دولية.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.sea.p1">حاويات كاملة FCL للكميات التجارية الكبيرة</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.sea.p2">شحن جزئي LCL بالكرتونة أو المشطاح لأي كمية</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.sea.p3">مواعيد انطلاق ثابتة وتكلفة أقل من الشحن الجوي</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-land" aria-labelledby="tab-land" data-svc="land" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-truck"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.land.title">شحن بري من مصر إلى الضفة</h3>
+                <p data-i18n="svc.land.desc">عربيات كاملة لكل أنواع البضائع: مواد بناء، أجهزة كهربائية، أدوات منزلية، ملابس، مواد غذائية وبضائع بالجملة.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.land.p1">عربيات كاملة من مصر مباشرة إلى الضفة</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.land.p2">مناسب لمواد البناء والأجهزة والبضائع الثقيلة</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.land.p3">أسعار منافسة للتجار وأصحاب المشاريع</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-gaza" aria-labelledby="tab-gaza" data-svc="gaza" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-route"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.gaza.title">شحن من مصر إلى غزة</h3>
+                <p data-i18n="svc.gaza.desc">شحن جزئي حتى للكميات الصغيرة وشحن كلي للتجار، مع تجميع الشحنات وتوصيل مباشر إلى غزة.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.gaza.p1">استلام من أي محافظة داخل مصر</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.gaza.p2">شحن جزئي يومي حتى للكرتونة الواحدة</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.gaza.p3">تجميع وتغليف وتوصيل مباشر إلى غزة</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-wbgaza" aria-labelledby="tab-wbgaza" data-svc="wbgaza" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-container"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.wbgaza.title">شحن من الضفة إلى غزة</h3>
+                <p data-i18n="svc.wbgaza.desc">خدمة يومية لشحن الملابس والأحذية والأدوات المنزلية والمواد الغذائية، كلي وجزئي، بأفضل الأسعار.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.wbgaza.p1">استلام في مخزننا برام الله – بيتونيا</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.wbgaza.p2">ملابس، أحذية، أدوات منزلية ومواد غذائية</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.wbgaza.p3">توصيل حتى باب المستلم في غزة</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/970595825254"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-customs" aria-labelledby="tab-customs" data-svc="customs" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-stamp"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.customs.title">التخليص الجمركي</h3>
+                <p data-i18n="svc.customs.desc">إنهاء كامل إجراءات التخليص في مصر وفلسطين بكفاءة عالية، بالتعاون مع وكلائنا داخل فلسطين.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.customs.p1">إجراءات التخليص في مصر وفلسطين</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.customs.p2">وكلاء معتمدون داخل فلسطين</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.customs.p3">مراجعة بيانات البضاعة قبل الشحن لتجنب الرفض</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-storage" aria-labelledby="tab-storage" data-svc="storage" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-warehouse"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.storage.title">التخزين</h3>
+                <p data-i18n="svc.storage.desc">مخازن مجهزة وآمنة في رام الله – بيتونيا لتخزين البضائع لحساب الغير أسبوعيًا أو شهريًا، وتخزين في مصر لحين الشحن.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.storage.p1">مخازن مجهزة وآمنة في رام الله – بيتونيا</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.storage.p2">تخزين لحساب الغير أسبوعيًا أو شهريًا</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.storage.p3">تخزين في مصر لحين موعد الشحن</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-factories" aria-labelledby="tab-factories" data-svc="factories" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-factory"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.factories.title">توفير مصانع وموردين في مصر</h3>
+                <p data-i18n="svc.factories.desc">نربطك بأفضل المصانع المعتمدة في مصر: مواد غذائية، مواد بناء، أثاث منزلي ومكتبي، ونساعدك في اختيار المصنع الأنسب.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.factories.p1">مصانع معتمدة للمواد الغذائية ومواد البناء والأثاث</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.factories.p2">مساعدة في اختيار المصنع الأنسب للمواصفات</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.factories.p3">متابعة التجهيز والتوريد حتى خروج الشحنة</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-internal" aria-labelledby="tab-internal" data-svc="internal" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-map"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.internal.title">النقل الداخلي</h3>
+                <p data-i18n="svc.internal.desc">توصيل بضاعتك إلى أي نقطة داخل الضفة الغربية والداخل الفلسطيني حتى باب العميل.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.internal.p1">من الميناء أو المعبر إلى أي مدينة</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.internal.p2">الضفة الغربية والداخل الفلسطيني</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.internal.p3">توصيل حتى باب العميل</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-packing" aria-labelledby="tab-packing" data-svc="packing" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-packing"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.packing.title">التجميع والتغليف</h3>
+                <p data-i18n="svc.packing.desc">تعبئة وتغليف احترافي يحمي بضاعتك خلال النقل البحري والبري، مع ترتيب وتحميل محترف.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.packing.p1">تعبئة وتغليف يحمي البضاعة في البحر والبر</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.packing.p2">تجميع شحنات التجار الصغيرة في شحنة واحدة</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.packing.p3">ترتيب وتحميل محترف للحاويات</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+            <article class="svc-detail" role="tabpanel" id="panel-tracking" aria-labelledby="tab-tracking" data-svc="tracking" hidden>
+              <div class="svc-detail-ico"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-radar"/></svg></div>
+              <div class="svc-detail-body">
+                <h3 data-i18n="svc.tracking.title">متابعة الشحنة والتأمين</h3>
+                <p data-i18n="svc.tracking.desc">تحديثات مستمرة على حالة شحنتك وتقارير متابعة في كل مرحلة، مع إمكانية التأمين على البضائع الثمينة.</p>
+                <ul class="svc-points"><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.tracking.p1">تحديثات مستمرة على واتساب عن حالة الشحنة</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.tracking.p2">تقارير متابعة في كل مرحلة داخل مصر</span></li><li><svg class="ic ic-check" aria-hidden="true"><use href="/img/icons.svg#i-check"/></svg><span data-i18n="svc.tracking.p3">تأمين اختياري على البضائع الثمينة</span></li></ul>
+                <a class="btn btn-wa btn-ico" href="https://wa.me/201080644096"><svg class="ic" aria-hidden="true"><use href="/img/icons.svg#i-whatsapp"/></svg><span data-i18n="svc.cta">اطلب هذه الخدمة على واتساب</span></a>
+              </div>
+            </article>
+          </div>
         </div>
-        <p style="margin-top:24px" class="reveal"><a class="btn btn-orange" href="/services" data-i18n="services.all">كل الخدمات بالتفصيل</a></p>
+        <p class="section-hint reveal" data-i18n="svc.hint">اختر خدمة لعرض تفاصيلها</p>
+        <p style="margin-top:18px;text-align:center" class="reveal"><a class="btn btn-orange" href="/services" data-i18n="services.all">كل الخدمات بالتفصيل</a></p>
       </div>
     </section>
-
     <!-- ===== Goods ===== -->
     <section class="section">
       <div class="container">
