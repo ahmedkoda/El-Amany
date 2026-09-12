@@ -5,6 +5,9 @@
   "description": "Official website for Al Amani Express — freight & customs clearance between Egypt and Palestine (Arabic RTL + English).",
   "type": "commonjs",
   "main": "server.js",
+  "engines": {
+    "node": ">=20 <23"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
