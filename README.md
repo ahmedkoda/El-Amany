@@ -22,6 +22,46 @@ npm start
   Saved edits overlay the built-in defaults and show on the site immediately.
   Stored in `data/content.json` (only changed keys, git-ignored).
 
+## Deployment (Railway)
+
+Live: https://al-amani-express-production.up.railway.app
+
+The service is connected to this GitHub repo, so **pushing to `main` deploys
+automatically**. Configuration lives in `railway.json` (start command, health
+check on `/`, restart on failure) and Node is pinned to 20-22 via `engines`.
+
+**The volume is the part you must not lose.** A Railway volume is mounted at
+`/app/data`, which is where `data/content.json` (every dashboard edit) is
+written. Without it the file is wiped on each deploy. Verified: an edit saved
+through the dashboard survived a full redeploy.
+
+| Setting | Value |
+|---|---|
+| Volume mount path | `/app/data` |
+| Env vars | `ADMIN_USER`, `ADMIN_PASS` (set in Railway, never committed) |
+| Port | provided by Railway, read from `process.env.PORT` |
+
+### Backups
+
+`data/content.json` exists only on the volume. Railway deletes volumes on
+trial accounts 30 days after the trial credit expires, so move to a paid plan
+before then, and keep a copy of the file:
+
+```bash
+curl -s https://al-amani-express-production.up.railway.app/api/content > content-backup.json
+```
+
+To restore, POST that file back to `/admin/content` with the admin credentials.
+
+### Known follow-up
+
+Railway is deprecating `railway.json` in favour of `.railway/railway.ts`
+(existing files keep working until 2026-12-01). `railway config migrate`
+currently generates a file that renames the service and omits the volume, so
+it was **not** applied. Migrate by hand before that date, keeping the service
+name `al-amani-express` and the `/app/data` volume.
+
+
 ## Structure
 
 ```
