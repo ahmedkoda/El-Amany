@@ -15,10 +15,12 @@ npm start
 ```
 
 - Public site: http://localhost:3000
-- Admin (edit site text): http://localhost:3000/admin — HTTP Basic auth from `.env`.
-  Edit any section's text in Arabic/English; saved edits overlay the built-in
-  defaults and show on the site immediately. Stored in `data/content.json`
-  (only changed keys, git-ignored).
+- Dashboard (edit site content): http://localhost:3000/admin — HTTP Basic auth
+  from `.env`. Built for non-technical editors: one entry per site section with
+  plain-language field labels, Arabic/English toggle, per-field "restore
+  original", and a "contact details" section for WhatsApp/phone/Facebook.
+  Saved edits overlay the built-in defaults and show on the site immediately.
+  Stored in `data/content.json` (only changed keys, git-ignored).
 
 ## Structure
 
@@ -26,7 +28,7 @@ npm start
 server.js              Express server: static site + /admin text editor
 public/                Static pages (index, services, contact, 404) + css/js/img
 public/js/i18n.js      All site text, Arabic + English (defaults)
-admin/                 Content editor UI
+admin/                 Dashboard UI (dashboard.html) + section/field labels (schema.js)
 facebook/              Raw material scraped from the Facebook page + summary
 scripts/               Helper to download free slider photos
 data/content.json      Admin text overrides (git-ignored)

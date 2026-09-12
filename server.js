@@ -25,11 +25,11 @@ if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 // Editable site text (admin overrides over the built-in i18n defaults).
 const LANGS = ['ar', 'en'];
 const CONTENT_FILE = path.join(DATA_DIR, 'content.json');
-const EMPTY_CONTENT = { ar: {}, en: {} };
+const EMPTY_CONTENT = { ar: {}, en: {}, settings: {} };
 if (!fs.existsSync(CONTENT_FILE)) fs.writeFileSync(CONTENT_FILE, JSON.stringify(EMPTY_CONTENT, null, 2));
 function readContent() {
   try { return JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8')); }
-  catch { return { ar: {}, en: {} }; }
+  catch { return { ar: {}, en: {}, settings: {} }; }
 }
 function writeContent(c) { fs.writeFileSync(CONTENT_FILE, JSON.stringify(c, null, 2)); }
 
@@ -53,15 +53,25 @@ function requireAdmin(req, res, next) {
 // Public: the pages overlay these admin edits onto the built-in defaults.
 app.get('/api/content', (req, res) => res.json(readContent()));
 
-// Admin: the text editor UI.
+// Admin: the dashboard UI + its section schema.
 app.get(['/admin', '/admin/content'], requireAdmin, (req, res) => {
-  res.sendFile(path.join(ROOT, 'admin', 'content-editor.html'));
+  res.sendFile(path.join(ROOT, 'admin', 'dashboard.html'));
+});
+app.get('/admin/schema.js', requireAdmin, (req, res) => {
+  res.sendFile(path.join(ROOT, 'admin', 'schema.js'));
 });
 
-// Admin: save edited text. Body = { ar:{key:val}, en:{...} } with only changed keys.
+// Settings editable from the dashboard (contact numbers and links).
+const SETTING_KEYS = ['wa_eg', 'wa_ps', 'phone_eg', 'facebook'];
+
+// Admin: save edited text. Body = { ar:{key:val}, en:{...}, settings:{...} } with only changed keys.
 app.post('/admin/content', requireAdmin, (req, res) => {
   const body = req.body || {};
-  const clean = { ar: {}, en: {} };
+  const clean = { ar: {}, en: {}, settings: {} };
+  const st = body.settings || {};
+  for (const k of SETTING_KEYS) {
+    if (typeof st[k] === 'string' && st[k].trim() && st[k].length <= 200) clean.settings[k] = st[k].trim();
+  }
   for (const lang of LANGS) {
     const m = body[lang] || {};
     for (const k of Object.keys(m)) {
@@ -70,7 +80,7 @@ app.post('/admin/content', requireAdmin, (req, res) => {
     }
   }
   writeContent(clean);
-  const n = Object.keys(clean.ar).length + Object.keys(clean.en).length;
+  const n = Object.keys(clean.ar).length + Object.keys(clean.en).length + Object.keys(clean.settings).length;
   res.json({ ok: true, overrides: n });
 });
 

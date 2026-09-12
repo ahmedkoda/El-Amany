@@ -326,10 +326,28 @@
   apply(current());           // show defaults immediately (no flash for Arabic)
   window.__setLang = apply;
 
+  // Contact numbers / links editable from the dashboard (settings in /api/content).
+  function applySettings(st) {
+    if (!st) return;
+    const digits = v => String(v || '').replace(/\D/g, '');
+    document.querySelectorAll('[data-contact]').forEach(el => {
+      const k = el.getAttribute('data-contact'); const v = st[k];
+      if (!v) return;
+      if (k === 'facebook') el.href = v;
+      else if (k === 'phone_eg') el.href = 'tel:+' + digits(v);
+      else el.href = 'https://wa.me/' + digits(v);
+    });
+    document.querySelectorAll('[data-contact-text]').forEach(el => {
+      const v = st[el.getAttribute('data-contact-text')];
+      if (v) el.textContent = v;
+    });
+  }
+
   // overlay admin-edited text (overrides) when the server provides any
   fetch('/api/content').then(r => (r.ok ? r.json() : null)).then(ov => {
     if (!ov) return;
     ['ar', 'en'].forEach(l => { DICT[l] = Object.assign({}, T[l], ov[l] || {}); });
     apply(current());
+    applySettings(ov.settings);
   }).catch(() => {});
 })();

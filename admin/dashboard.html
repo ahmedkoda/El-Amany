@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة التحكم — الأماني إكسبريس</title>
+  <link rel="icon" href="/img/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --blue:#1f3d7a; --blue2:#2a4f9a; --soft:#eaf0fb; --orange:#f26a21; --orange2:#ff8a3d; --green:#1f9d55;
+      --ink:#1c2434; --muted:#5f6b7e; --line:#e1e7f0; --bg:#f4f6fb; --white:#fff; --shadow:0 6px 22px rgba(31,61,122,.10); }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif; font-size:16px; color:var(--ink); background:var(--bg); line-height:1.7; }
+    h1,h2,h3,button { font-family:"Cairo","Tajawal",sans-serif; }
+    a { color:var(--blue2); text-decoration:none; }
+
+    /* top bar */
+    .top { position:sticky; top:0; z-index:30; background:var(--white); border-bottom:1px solid var(--line); box-shadow:0 1px 8px rgba(31,61,122,.06);
+      display:flex; align-items:center; gap:14px; padding:10px 18px; flex-wrap:wrap; }
+    .top img { height:44px; }
+    .top h1 { font-size:18px; margin:0; color:var(--blue); flex:1; }
+    .top .view { color:var(--blue2); font-weight:700; padding:8px 12px; border-radius:10px; background:var(--soft); }
+    .save { background:linear-gradient(180deg,var(--orange2),var(--orange)); color:#fff; border:0; font-weight:800; font-size:16px;
+      padding:11px 22px; border-radius:999px; cursor:pointer; box-shadow:0 8px 20px rgba(242,106,33,.35); transition:.15s; display:flex; align-items:center; gap:8px; }
+    .save:hover { filter:brightness(1.05); transform:translateY(-1px); }
+    .save:disabled { opacity:.55; cursor:default; box-shadow:none; transform:none; }
+    .save .n { background:#fff; color:var(--orange); border-radius:999px; font-size:13px; padding:0 8px; min-width:22px; text-align:center; }
+
+    /* layout */
+    .wrap { display:grid; grid-template-columns:280px 1fr; gap:22px; max-width:1240px; margin:0 auto; padding:20px 18px 120px; }
+    .side { position:sticky; top:80px; align-self:start; background:var(--white); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; }
+    .side h2 { margin:0; padding:12px 16px; font-size:14px; color:var(--muted); background:var(--bg); border-bottom:1px solid var(--line); }
+    .side nav { display:grid; padding:8px; gap:3px; max-height:calc(100vh - 150px); overflow:auto; }
+    .side button { display:flex; align-items:center; gap:10px; width:100%; text-align:start; background:none; border:0; border-radius:10px;
+      padding:10px 12px; cursor:pointer; font-size:15px; font-weight:700; color:var(--ink); transition:.15s; }
+    .side button:hover { background:var(--soft); color:var(--blue); }
+    .side button.on { background:var(--blue); color:#fff; }
+    .side button .ico { font-size:18px; width:26px; text-align:center; }
+    .side button .txt { flex:1; }
+    .side button .badge { background:var(--orange); color:#fff; font-size:12px; border-radius:999px; padding:0 8px; min-width:20px; text-align:center; }
+    .side .sep { height:1px; background:var(--line); margin:6px 8px; }
+    .mobile-nav { display:none; }
+
+    /* section */
+    .head { background:var(--white); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:20px 22px; margin-bottom:16px;
+      display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .head .big { font-size:34px; }
+    .head h2 { margin:0; font-size:22px; color:var(--blue); }
+    .head p { margin:2px 0 0; color:var(--muted); font-size:14.5px; }
+    .head .grow { flex:1; min-width:200px; }
+    .lang { display:flex; background:var(--bg); border:1px solid var(--line); border-radius:999px; padding:3px; }
+    .lang button { border:0; background:none; cursor:pointer; font-size:14px; font-weight:800; padding:7px 16px; border-radius:999px; color:var(--blue); }
+    .lang button.on { background:var(--blue); color:#fff; }
+    .head .open { font-size:14px; font-weight:700; }
+
+    .grp { background:var(--white); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); margin-bottom:16px; overflow:hidden; }
+    .grp > h3 { margin:0; padding:12px 18px; font-size:16px; color:var(--blue); background:var(--soft); display:flex; align-items:center; gap:10px; }
+    .grp > h3::before { content:""; width:6px; height:22px; border-radius:4px; background:var(--orange); }
+    .fields { padding:8px 18px 14px; display:grid; gap:14px; }
+    .f label { display:block; font-weight:700; color:var(--ink); margin-bottom:6px; font-size:15px; }
+    .f input, .f textarea { width:100%; font:inherit; font-size:16px; padding:11px 13px; border:1.5px solid var(--line); border-radius:12px; background:#fcfdff; transition:.15s; }
+    .f textarea { min-height:86px; resize:vertical; }
+    .f input:focus, .f textarea:focus { outline:none; border-color:var(--blue2); box-shadow:0 0 0 3px rgba(42,79,154,.12); }
+    .f.changed input, .f.changed textarea { border-color:var(--orange); background:#fff8f3; }
+    .f .meta { display:none; margin-top:6px; font-size:13px; color:var(--muted); align-items:flex-start; gap:10px; flex-wrap:wrap; }
+    .f.changed .meta { display:flex; }
+    .f .meta .orig { flex:1; min-width:180px; }
+    .f .meta .orig b { color:var(--ink); }
+    .f .undo { border:1px solid var(--line); background:#fff; color:var(--blue2); border-radius:8px; cursor:pointer; font-size:13px; font-weight:700; padding:3px 10px; }
+    .f .undo:hover { background:var(--soft); }
+    .f .hint { font-size:13px; color:var(--muted); margin-top:5px; }
+    .f input[dir=ltr] { text-align:left; }
+
+    .help { background:#fff8f3; border:1px solid #f7c9ae; color:#7a3a10; border-radius:12px; padding:12px 16px; margin-bottom:16px; font-size:14.5px; }
+
+    .toast { position:fixed; inset-inline:0; bottom:22px; display:flex; justify-content:center; pointer-events:none; z-index:50; }
+    .toast span { background:var(--blue); color:#fff; padding:12px 22px; border-radius:999px; font-weight:800; box-shadow:0 10px 28px rgba(0,0,0,.28);
+      opacity:0; transform:translateY(12px); transition:.25s; font-size:15px; }
+    .toast.show span { opacity:1; transform:none; }
+    .toast.ok span { background:var(--green); }
+    .toast.err span { background:#c0392b; }
+
+    @media (max-width:860px) {
+      .wrap { grid-template-columns:1fr; padding:14px 12px 120px; }
+      .side { display:none; }
+      .mobile-nav { display:block; margin-bottom:14px; }
+      .mobile-nav select { width:100%; font:inherit; font-size:16px; font-weight:700; padding:12px; border:1.5px solid var(--line); border-radius:12px; background:#fff; }
+      .top h1 { font-size:16px; } .top .sub { display:none; }
+      .save { padding:10px 16px; font-size:15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <img src="/img/logo.jpg" alt="الأماني إكسبريس">
+    <h1>لوحة التحكم <span class="sub">— تعديل محتوى الموقع</span></h1>
+    <a class="view" href="/" target="_blank">عرض الموقع ↗</a>
+    <button class="save" id="save" disabled><span>💾 حفظ التغييرات</span><span class="n" id="saveN">0</span></button>
+  </header>
+
+  <div class="wrap">
+    <aside class="side">
+      <h2>أقسام الموقع</h2>
+      <nav id="nav"></nav>
+    </aside>
+
+    <main>
+      <div class="mobile-nav"><select id="mnav"></select></div>
+      <div id="view">جارٍ التحميل…</div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"><span></span></div>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/admin/schema.js"></script>
+  <script>
+    document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar';
+    const S = window.ADMIN_SCHEMA;
+    const DEF = window.I18N_DEFAULTS || { ar: {}, en: {} };
+    const LANG_NAMES = { ar: 'النص العربي', en: 'English text' };
+    let over = { ar: {}, en: {}, settings: {} };   // saved overrides (from the server)
+    let draft = { ar: {}, en: {}, settings: {} };  // current edits (only changed keys)
+    let lang = 'ar';
+    let current = S.sections[0].id;
+
+    const LONG = /\.(text|desc|lead|note|a|p[0-9])$/;
+    const def = (l, k) => (DEF[l] && DEF[l][k] != null) ? DEF[l][k] : '';
+    const val = (l, k) => (draft[l][k] != null) ? draft[l][k] : def(l, k);
+    const setDef = k => (S.settings.fields.find(f => f.key === k) || {}).def || '';
+    const sval = k => (draft.settings[k] != null) ? draft.settings[k] : setDef(k);
+
+    function changedCount(sec) {
+      if (sec === 'settings') return Object.keys(draft.settings).length;
+      const s = S.sections.find(x => x.id === sec);
+      const keys = s.groups.flatMap(g => g.fields.map(f => f[0]));
+      return keys.filter(k => draft.ar[k] != null || draft.en[k] != null).length;
+    }
+    function totalChanged() {
+      return Object.keys(draft.ar).length + Object.keys(draft.en).length + Object.keys(draft.settings).length;
+    }
+    function unsavedCount() {
+      let n = 0;
+      for (const part of ['ar', 'en', 'settings']) {
+        const keys = new Set([...Object.keys(draft[part]), ...Object.keys(over[part] || {})]);
+        keys.forEach(k => { if (draft[part][k] !== (over[part] || {})[k]) n++; });
+      }
+      return n;
+    }
+    function dirty() { return unsavedCount() > 0; }
+
+    // ---------- sidebar ----------
+    function renderNav() {
+      const nav = document.getElementById('nav'); nav.innerHTML = '';
+      const mk = (id, icon, title) => {
+        const b = document.createElement('button');
+        b.className = id === current ? 'on' : '';
+        const n = changedCount(id);
+        b.innerHTML = `<span class="ico">${icon}</span><span class="txt">${title}</span>` + (n ? `<span class="badge">${n}</span>` : '');
+        b.addEventListener('click', () => { current = id; renderNav(); renderSection(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        return b;
+      };
+      S.sections.forEach(s => nav.appendChild(mk(s.id, s.icon, s.title)));
+      const sep = document.createElement('div'); sep.className = 'sep'; nav.appendChild(sep);
+      nav.appendChild(mk('settings', S.settings.icon, S.settings.title));
+
+      const m = document.getElementById('mnav'); m.innerHTML = '';
+      [...S.sections, S.settings].forEach(s => {
+        const o = document.createElement('option'); o.value = s.id; o.textContent = `${s.icon} ${s.title}` + (changedCount(s.id) ? ' ●' : '');
+        o.selected = s.id === current; m.appendChild(o);
+      });
+      m.onchange = () => { current = m.value; renderNav(); renderSection(); };
+
+      document.getElementById('saveN').textContent = unsavedCount();
+      document.getElementById('save').disabled = !dirty();
+    }
+
+    // ---------- fields ----------
+    function fieldEl(k, label) {
+      const wrap = document.createElement('div'); wrap.className = 'f';
+      const lab = document.createElement('label'); lab.textContent = label; wrap.appendChild(lab);
+      const long = LONG.test(k) || def(lang, k).length > 70;
+      const inp = document.createElement(long ? 'textarea' : 'input');
+      if (!long) inp.type = 'text';
+      inp.dir = lang === 'en' ? 'ltr' : 'rtl';
+      inp.value = val(lang, k);
+      const meta = document.createElement('div'); meta.className = 'meta';
+      const orig = document.createElement('div'); orig.className = 'orig'; orig.innerHTML = `<b>النص الأصلي:</b> ${escapeHtml(def(lang, k))}`;
+      const undo = document.createElement('button'); undo.type = 'button'; undo.className = 'undo'; undo.textContent = 'إرجاع النص الأصلي';
+      meta.appendChild(orig); meta.appendChild(undo);
+      const mark = () => {
+        const changed = inp.value !== def(lang, k);
+        wrap.classList.toggle('changed', changed);
+        if (changed) draft[lang][k] = inp.value; else delete draft[lang][k];
+        renderNav();
+      };
+      inp.addEventListener('input', mark);
+      undo.addEventListener('click', () => { inp.value = def(lang, k); mark(); inp.focus(); });
+      wrap.classList.toggle('changed', inp.value !== def(lang, k));
+      wrap.appendChild(inp); wrap.appendChild(meta);
+      return wrap;
+    }
+
+    function settingEl(f) {
+      const wrap = document.createElement('div'); wrap.className = 'f';
+      wrap.innerHTML = `<label>${f.label}</label>`;
+      const inp = document.createElement('input'); inp.type = 'text'; inp.dir = 'ltr'; inp.value = sval(f.key);
+      const hint = document.createElement('div'); hint.className = 'hint'; hint.textContent = f.hint || '';
+      const meta = document.createElement('div'); meta.className = 'meta';
+      meta.innerHTML = `<div class="orig"><b>القيمة الأصلية:</b> ${escapeHtml(f.def)}</div>`;
+      const undo = document.createElement('button'); undo.type = 'button'; undo.className = 'undo'; undo.textContent = 'إرجاع القيمة الأصلية';
+      meta.appendChild(undo);
+      const mark = () => {
+        const changed = inp.value.trim() !== f.def;
+        wrap.classList.toggle('changed', changed);
+        if (changed && inp.value.trim()) draft.settings[f.key] = inp.value.trim(); else delete draft.settings[f.key];
+        renderNav();
+      };
+      inp.addEventListener('input', mark);
+      undo.addEventListener('click', () => { inp.value = f.def; mark(); inp.focus(); });
+      wrap.classList.toggle('changed', inp.value !== f.def);
+      wrap.appendChild(inp); wrap.appendChild(hint); wrap.appendChild(meta);
+      return wrap;
+    }
+
+    // ---------- section view ----------
+    function renderSection() {
+      const view = document.getElementById('view'); view.innerHTML = '';
+      const isSettings = current === 'settings';
+      const s = isSettings ? S.settings : S.sections.find(x => x.id === current);
+
+      const head = document.createElement('div'); head.className = 'head';
+      head.innerHTML = `<div class="big">${s.icon}</div><div class="grow"><h2>${s.title}</h2><p>${s.desc}</p></div>`;
+      if (!isSettings) {
+        const sw = document.createElement('div'); sw.className = 'lang';
+        ['ar', 'en'].forEach(l => {
+          const b = document.createElement('button'); b.textContent = LANG_NAMES[l]; b.className = l === lang ? 'on' : '';
+          b.addEventListener('click', () => { lang = l; renderSection(); });
+          sw.appendChild(b);
+        });
+        head.appendChild(sw);
+      }
+      const open = document.createElement('a'); open.className = 'open'; open.href = s.link; open.target = '_blank'; open.textContent = 'افتح هذا القسم في الموقع ↗';
+      head.appendChild(open);
+      view.appendChild(head);
+
+      if (isSettings) {
+        const help = document.createElement('div'); help.className = 'help';
+        help.textContent = 'اكتب الرقم كما تريد أن يظهر للزائر. الموقع يستخرج الأرقام تلقائيًا لروابط واتساب والاتصال.';
+        view.appendChild(help);
+        const g = document.createElement('section'); g.className = 'grp';
+        g.innerHTML = '<h3>الأرقام والروابط</h3>';
+        const fields = document.createElement('div'); fields.className = 'fields';
+        s.fields.forEach(f => fields.appendChild(settingEl(f)));
+        g.appendChild(fields); view.appendChild(g);
+        return;
+      }
+
+      if (lang === 'en') {
+        const help = document.createElement('div'); help.className = 'help';
+        help.textContent = 'أنت الآن تعدّل النص الإنجليزي الذي يظهر عند اختيار الزائر لغة EN. اضغط «النص العربي» للعودة.';
+        view.appendChild(help);
+      }
+      s.groups.forEach(g => {
+        const sec = document.createElement('section'); sec.className = 'grp';
+        sec.innerHTML = `<h3>${g.title}</h3>`;
+        const fields = document.createElement('div'); fields.className = 'fields';
+        g.fields.forEach(([k, label]) => fields.appendChild(fieldEl(k, label)));
+        sec.appendChild(fields); view.appendChild(sec);
+      });
+    }
+
+    // ---------- save ----------
+    async function save() {
+      const btn = document.getElementById('save'); btn.disabled = true;
+      try {
+        const r = await fetch('/admin/content', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(draft) });
+        if (!r.ok) throw new Error(r.status);
+        over = JSON.parse(JSON.stringify(draft));
+        toast('✅ تم الحفظ — التعديلات ظاهرة الآن على الموقع', 'ok');
+      } catch (e) {
+        toast('❌ لم يتم الحفظ. حدّث الصفحة وسجّل الدخول ثم حاول مرة أخرى', 'err');
+      }
+      renderNav();
+    }
+    document.getElementById('save').addEventListener('click', save);
+    document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); if (dirty()) save(); } });
+    window.addEventListener('beforeunload', e => { if (dirty()) { e.preventDefault(); e.returnValue = ''; } });
+
+    let tT;
+    function toast(msg, cls) {
+      const t = document.getElementById('toast'); t.querySelector('span').textContent = msg;
+      t.className = 'toast show ' + (cls || ''); clearTimeout(tT);
+      tT = setTimeout(() => t.className = 'toast', 3200);
+    }
+    function escapeHtml(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    // ---------- boot ----------
+    fetch('/api/content').then(r => r.ok ? r.json() : null).then(o => {
+      if (o) { over = { ar: o.ar || {}, en: o.en || {}, settings: o.settings || {} }; draft = JSON.parse(JSON.stringify(over)); }
+    }).catch(() => {}).finally(() => { renderNav(); renderSection(); });
+  </script>
+</body>
+</html>
